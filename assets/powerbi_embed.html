@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #wrap { height: 100%; display: flex; position: relative; }
+    #viz { flex: 1; border: 0; }
+    #msg { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,.65); color: #fff; padding: 4px 8px; border-radius: 6px; font: 12px system-ui; }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="msg">Loading Power BI…</div>
+    <iframe id="viz" src="about:blank" allowfullscreen></iframe>
+  </div>
+  <script>
+    window.setEmbedConfig = function(cfg){
+      const iframe = document.getElementById('viz');
+      const msg = document.getElementById('msg');
+      if(cfg && cfg.publicUrl){
+        iframe.src = cfg.publicUrl; msg.textContent = 'Public embed (demo)';
+      } else if (cfg && cfg.secureUrl){
+        // NOTE: Real secure embedding requires powerbi-client JS and token injection.
+        iframe.src = cfg.secureUrl; msg.textContent = 'Secure embed placeholder';
+      } else {
+        msg.textContent = 'No embed URL provided';
+      }
+    };
+  </script>
+</body>
+</html>
